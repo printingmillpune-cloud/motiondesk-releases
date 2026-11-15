@@ -1,0 +1,8 @@
+{
+  "app": "MotionDesk",
+  "schema": 1,
+  "version": "0.3.6",
+  "download_url": "https://github.com/printingmillpune-cloud/motiondesk-releases/releases/download/v0.3.6/MotionDesk_Update_v0.3.6.zip",
+  "sha256": "b356a65b0c0398411ac675327a06fe75484fdecc2e80ae8f4342c87e930c2bb8",
+  "notes": "Fontconfig rendering fix; audio link import; music/voice volume controls; preview and approve before download. Keeps user project data."
+}
