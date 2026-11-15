@@ -1,0 +1,53 @@
+name: Verify and publish MotionDesk update manifest
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'releases/MotionDesk_Update_v*.zip'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate release and calculate SHA-256
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json,re,zipfile
+          archives=sorted(Path('releases').glob('MotionDesk_Update_v*.zip'),key=lambda p: tuple(map(int,re.search(r'v(\d+\.\d+\.\d+)\.zip$',p.name).group(1).split('.'))))
+          if not archives: raise SystemExit('No MotionDesk ZIP found')
+          p=archives[-1]
+          m=re.fullmatch(r'MotionDesk_Update_v(\d+\.\d+\.\d+)\.zip',p.name)
+          if not m: raise SystemExit('Invalid ZIP filename')
+          version=m.group(1)
+          allowed={'app.py','motiondesk_updater.py','motiondesk_apply_update.py','launch_motiondesk.py','static/app.js','static/index.html','static/style.css'}
+          with zipfile.ZipFile(p) as z:
+              names=[i.filename for i in z.infolist() if not i.is_dir()]
+              if z.testzip() is not None:raise SystemExit('ZIP integrity failed')
+              if 'app.py' not in names or len(names)!=len(set(names)) or not set(names)<=allowed:raise SystemExit('Invalid release ZIP paths')
+              if any(i.file_size>5*1024*1024 for i in z.infolist()):raise SystemExit('Oversized source file')
+              if any((i.external_attr>>16)&0o170000==0o120000 for i in z.infolist()):raise SystemExit('Symlink forbidden')
+              app=z.read('app.py').decode('utf-8');updater=z.read('motiondesk_updater.py').decode('utf-8')
+              if "'version':'"+version+"'" not in app and "'version': '"+version+"'" not in app:raise SystemExit('App health version mismatch')
+              if "APP_VERSION = '"+version+"'" not in updater:raise SystemExit('Updater version mismatch')
+          latest=Path('latest.json')
+          if latest.exists():
+              current=json.loads(latest.read_text()).get('version','0.0.0')
+              if tuple(map(int,version.split('.')))<tuple(map(int,current.split('.'))):raise SystemExit('Refusing to roll back release channel')
+          manifest={'app':'MotionDesk','schema':1,'version':version,'download_url':'https://raw.githubusercontent.com/printingmillpune-cloud/motiondesk-releases/main/releases/'+p.name,'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'notes':'Stable MotionDesk update, reviewed video preview and safer desktop workflow.'}
+          latest.write_text(json.dumps(manifest,indent=2)+'\n')
+          print('Verified',p,manifest['sha256'])
+          PY
+      - name: Commit verified manifest
+        shell: bash
+        run: |
+          if git diff --quiet -- latest.json; then echo 'Manifest is already current'; exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add latest.json
+          git commit -m 'Publish checksum-verified MotionDesk update manifest'
+          git push
