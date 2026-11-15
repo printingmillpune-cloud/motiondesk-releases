@@ -1,8 +1,8 @@
 {
   "app": "MotionDesk",
   "schema": 1,
-  "version": "0.3.8",
-  "download_url": "https://raw.githubusercontent.com/printingmillpune-cloud/motiondesk-releases/main/releases/MotionDesk_Update_v0.3.8.zip",
-  "sha256": "58eb0491149ac93e7c274a86ef846bbfc66a53419109065ee035b80a30bbcf75",
-  "notes": "Adds no-paid-API public Instagram/Facebook Reel audio importer where accessible, local MP3 conversion, creative music speed, audio test and voiceover mix. Use only audio you own or can reuse; some Reels cannot be downloaded without authentication."
+  "version": "0.3.10",
+  "download_url": "https://raw.githubusercontent.com/printingmillpune-cloud/motiondesk-releases/main/releases/MotionDesk_Update_v0.3.10.zip",
+  "sha256": "8fccaa1e6dfd2e1e13bf1f38a6dc2ac50f49e3959810bca741b28e29f4ddb65d",
+  "notes": "Updater popup only on manual check with working Close button; professional Music/Voiceover Mixer; final MP4 preview with review approval before downloads."
 }
