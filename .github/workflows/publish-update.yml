@@ -1,10 +1,8 @@
 name: Verify and publish MotionDesk update manifest
+# Temporarily disable automatic push runs while the GitHub account has a billing lock.
+# Manual checksum-verified latest.json publishing remains available independently.
+# Restore the push event once Actions billing is unlocked and a manual run passes.
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'releases/MotionDesk_Update_v*.zip'
-      - '.github/workflows/publish-update.yml'
   workflow_dispatch:
 permissions:
   contents: write
