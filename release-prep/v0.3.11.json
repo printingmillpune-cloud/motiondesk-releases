@@ -1,0 +1,8 @@
+{
+  "app": "MotionDesk",
+  "schema": 1,
+  "version": "0.3.11",
+  "download_url": "https://raw.githubusercontent.com/printingmillpune-cloud/motiondesk-releases/main/releases/MotionDesk_Update_v0.3.11.zip",
+  "sha256": "487e85e04538c8f1e7536fa703f766165d118812e358fd9fc6b5e36066614e16",
+  "notes": "Fix HTTP 405 for selected-project audio saves (Reel URL and MP3 Voiceover) with no changes to rendering or Mixer layout."
+}
