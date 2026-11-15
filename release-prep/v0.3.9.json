@@ -1,0 +1,8 @@
+{
+  "app": "MotionDesk",
+  "schema": 1,
+  "version": "0.3.9",
+  "download_url": "https://raw.githubusercontent.com/printingmillpune-cloud/motiondesk-releases/main/releases/MotionDesk_Update_v0.3.9.zip",
+  "sha256": "a3460f35ce371227e47227960edcca14b73812f6786d4b61709595f44a8dfcdf",
+  "notes": "Fix unresponsive Music Test, Music+Voice Test and Reel MP3 buttons. Restores latest project, local audio workspace before video upload, status errors and output safety."
+}
