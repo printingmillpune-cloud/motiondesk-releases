@@ -1,0 +1,8 @@
+{
+  "app": "MotionDesk",
+  "schema": 1,
+  "version": "0.3.10",
+  "download_url": "https://raw.githubusercontent.com/printingmillpune-cloud/motiondesk-releases/main/releases/MotionDesk_Update_v0.3.10.zip",
+  "sha256": "8fccaa1e6dfd2e1e13bf1f38a6dc2ac50f49e3959810bca741b28e29f4ddb65d",
+  "notes": "Manual-only closeable updater popup; polished Music and Voiceover Mixer; full rendered MP4 preview, explicit approval before downloads."
+}
