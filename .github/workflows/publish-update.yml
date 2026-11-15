@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'releases/MotionDesk_Update_v*.zip'
+      - '.github/workflows/publish-update.yml'
   workflow_dispatch:
 permissions:
   contents: write
